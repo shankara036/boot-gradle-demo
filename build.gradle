@@ -1,0 +1,44 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+war {
+    enabled(true)
+    rootSpec.exclude("**/*tomcat*.jar")
+}
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+}
+
+dependencies {
+
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.apache.tomcat', module: 'spring-boot-starter-tomcat'
+    }
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
