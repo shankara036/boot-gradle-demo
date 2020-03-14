@@ -19,13 +19,14 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        ApplicationContext context = SpringApplication.run(Application.class, args);
     }
 
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext applicationContext) {
         return args -> {
             System.out.println("Lets inspect the beans provided by the spring boot");
+            System.out.println(applicationContext.getBeanDefinitionCount());
             String[] beanNames = applicationContext.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             for (String beanName : beanNames) {

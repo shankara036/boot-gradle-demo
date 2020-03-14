@@ -1,13 +1,29 @@
 package com.boot.demo.domains;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
 public class Product implements DomainObject {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Version
+    private Integer version;
     private String productName;
     private String productDesc;
     private BigDecimal productPrice;
     private String productImageUrl;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     @Override
     public Integer getId() {
